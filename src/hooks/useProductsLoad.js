@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
-import { getProductList } from "../utils/api";
+import { getProducts } from "../utils/api";
 
-export default function useExchangeRateLoad() {
+export default function useProductsLoad() {
+  const [products, setProducts] = useState({
+    id: 0,
+    imageUrl: "",
+    productList: [],
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [data, setData] = useState(null);
 
   const getData = async () => {
     try {
       setIsLoading(true);
-      const { productList } = await getProductList();
-      setData(productList);
+      const data = await getProducts();
+      setProducts(data);
     } catch (e) {
       setIsError(true);
     } finally {
@@ -25,6 +29,6 @@ export default function useExchangeRateLoad() {
   return {
     isLoading,
     isError,
-    data,
+    products,
   };
 }

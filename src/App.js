@@ -1,5 +1,12 @@
+import React from "react";
+import Showcase from "./components/Showcase";
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <Showcase />
+    </div>
+  );
 }
 
 export default App;
