@@ -1,13 +1,15 @@
 import React from "react";
-import { Provider } from "jotai";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Showcase from "./components/Showcase";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <div className="App">
-      <Provider>
+      <QueryClientProvider client={queryClient}>
         <Showcase />
-      </Provider>
+      </QueryClientProvider>
     </div>
   );
 }
