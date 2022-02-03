@@ -1,4 +1,5 @@
 import React from "react";
+import GlobalStyles from "styles/GlobalStyles";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Showcase from "./components/Showcase";
 
@@ -8,6 +9,7 @@ function App() {
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
+        <GlobalStyles />
         <Showcase />
       </QueryClientProvider>
     </div>

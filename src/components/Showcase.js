@@ -12,7 +12,11 @@ function Showcase() {
 
   return (
     <div>
-      <MainImage products={products} />
+      <MainImage
+        products={products}
+        activeImage={activeImage}
+        setActiveImage={setActiveImage}
+      />
       <SubImgBox
         products={products}
         activeImage={activeImage}
