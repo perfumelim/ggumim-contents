@@ -1,19 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import Tooltip from "./Tooltip";
 
-function MainImage({ products, setActiveImage, activeImage }) {
+function MainImage({ products, setActiveImage }) {
   const { imageUrl, productList } = products;
 
   const handleClick = (e) => {
-    setActiveImage(e.target.id);
+    setActiveImage(Number(e.target.id));
   };
-
-  console.log("선택된 이미지는 ?", activeImage);
 
   return (
     <MainImageBox>
-      <Img src={imageUrl} alt="mainimage" />
+      <Img src={imageUrl} alt="main-image" />
       {productList.map((item) => (
         <IconBox
           key={item.productId}
@@ -26,9 +23,6 @@ function MainImage({ products, setActiveImage, activeImage }) {
             src="https://cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
             alt={item.productName}
           />
-          {activeImage === item.productId && (
-            <Tooltip products={products}></Tooltip>
-          )}
         </IconBox>
       ))}
     </MainImageBox>
