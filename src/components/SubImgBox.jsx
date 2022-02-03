@@ -1,12 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-function SubImgBox({ products, setActiveImage, activeImage }) {
+function SubImgBox({ products, activeImage }) {
   const { productList } = products;
-
-  const handleClick = (e) => {
-    setActiveImage(e.target.id);
-  };
 
   return (
     <ImageBox>
@@ -14,8 +10,7 @@ function SubImgBox({ products, setActiveImage, activeImage }) {
         <Images
           key={item.productId}
           id={item.productId}
-          onClick={handleClick}
-          isActive={activeImage === item.productId ? true : false}
+          isActive={activeImage === item.productId}
         >
           <img src={item.imageUrl} alt={item.productName} />
         </Images>
