@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-function MainImage({ products, setActiveImage }) {
+function MainImage({ products, setActiveImage, activeImage }) {
   const { imageUrl, productList } = products;
 
-  const handleClick = (e) => {
-    setActiveImage(Number(e.target.id));
+  const handleClick = (id) => {
+    setActiveImage(id);
+  };
+
+  const handleClose = () => {
+    setActiveImage(null);
   };
 
   return (
@@ -16,13 +20,27 @@ function MainImage({ products, setActiveImage }) {
           key={item.productId}
           top={item.pointX * 1.6}
           left={item.pointY * 1.64}
+          onClick={() => {
+            if (item.productId === activeImage) {
+              handleClose();
+            } else {
+              handleClick(item.productId);
+            }
+          }}
         >
-          <img
-            id={item.productId}
-            onClick={handleClick}
-            src="https://cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
-            alt={item.productName}
-          />
+          {item.productId === activeImage ? (
+            <img
+              id={item.productId}
+              src="https://cdn.ggumim.co.kr/storage/20211029145330GwwumnWNSs.png"
+              alt={item.productName}
+            />
+          ) : (
+            <img
+              id={item.productId}
+              src="https://cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
+              alt={item.productName}
+            />
+          )}
         </IconBox>
       ))}
     </MainImageBox>
@@ -39,14 +57,19 @@ const Img = styled.img`
   width: 800px;
 `;
 
-const IconBox = styled.div`
+const IconBox = styled.button`
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: inherit;
+  padding: 0;
 
   img {
-    width: 32px;
-    height: 32px;
+    width: 100%;
+    height: 100%;
   }
 
   cursor: pointer;

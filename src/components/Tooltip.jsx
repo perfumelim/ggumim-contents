@@ -1,20 +1,27 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 function Tooltip({ item }) {
   if (!item) return null;
+  const isTop = item.pointX * 1.6 > 500;
+  const isRight = item.pointY * 1.4 >= 560;
+  const top = isTop ? item.pointX * 1.6 - 130 : item.pointX * 1.6;
+  const left = isRight ? item.pointY * 1.4 - 60 : item.pointY * 1.4;
+
   return (
     <Container
       key={item.productId}
-      top={item.pointX * 1.6}
-      left={item.pointY * 1.6}
+      top={top}
+      left={left}
+      isTop={isTop}
+      isRight={isRight}
     >
-      <Box id={item.productId} isActive={true}>
+      <ContentBox id={item.productId}>
         <img src={item.imageUrl} alt={item.productName} />
         <TextBox>
           <p>{item.productName}</p>
           <PriceBox>
-            {item.discountRate !== 0 ? (
+            {item.outside === false ? (
               <Sale>{item.discountRate}%</Sale>
             ) : (
               <span>예상가</span>
@@ -28,7 +35,7 @@ function Tooltip({ item }) {
             src="https://cdn.ggumim.co.kr/storage/20211102181936xqHzyWAmb8.png"
           />
         </MoreIcon>
-      </Box>
+      </ContentBox>
     </Container>
   );
 }
@@ -40,15 +47,38 @@ const Container = styled.div`
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
   margin-top: 16px;
+
+  &: after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent transparent #ffffff transparent;
+    bottom: 86px;
+    left: 40px;
+    ${({ isRight }) =>
+      isRight &&
+      css`
+        left: 170px;
+      `}
+
+    ${({ isTop }) =>
+      isTop &&
+      css`
+      border-color: #ffffff transparent transparent transparent;
+      bottom: -14px;
+}`}
 `;
 
-const Box = styled.div`
+const ContentBox = styled.div`
   display: flex;
   background-color: #ffffff;
   width: 220px;
   height: 86px;
   padding: 8px 0 8px 8px;
-  margin-top: 16px;
+  margin-top: 26px;
   border-radius: 7px;
 
   img {

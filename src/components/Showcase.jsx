@@ -21,6 +21,7 @@ function Showcase() {
     <>
       <MainSection
         products={products}
+        activeImage={activeImage}
         setActiveImage={setActiveImage}
         onClick={() => onActiveImage(null)}
       />
